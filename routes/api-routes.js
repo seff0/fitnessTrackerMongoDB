@@ -3,18 +3,15 @@ const router = require("express").Router();
 
 router.get("/api/workouts", (req, res) => {
 	db.Workout.findAll({}, (err, data) => {
-		if (err) {
-			console.log(err);
-		} else {
-			res.json(data);
-		}
+		if (err) throw err;
+		res.json(data);
 	});
 });
 
 router.put("/api/workouts/:id", (req, res) => {
 	db.Workout.findOneAndUpdate(
 		{ _id: req.params.id },
-		{ $push: { exercises: body } },
+		{ $push: { exercises: req.body } },
 		{ new: true }
 	)
 		.then((data) => {
@@ -33,6 +30,13 @@ router.post("/api/workouts", (req, res) => {
 		.catch((err) => {
 			res.json(err);
 		});
+});
+
+router.get("/api/workouts/range", (req, res) => {
+	db.Workout.findAll({}, (err, data) => {
+		if (err) throw err;
+		res.json(data);
+	});
 });
 
 module.exports = router;
