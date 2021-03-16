@@ -2,7 +2,7 @@ const db = require("../models");
 const router = require("express").Router();
 
 router.get("/api/workouts", (req, res) => {
-	db.Workout.findAll({}, (err, data) => {
+	db.Workout.find({}, (err, data) => {
 		if (err) throw err;
 		res.json(data);
 	});
@@ -33,7 +33,7 @@ router.post("/api/workouts", (req, res) => {
 });
 
 router.get("/api/workouts/range", (req, res) => {
-	db.Workout.findAll(
+	db.Workout.find(
 		{ day: { $gte: query.start, $lte: query.end } },
 		(err, data) => {
 			if (err) throw err;
