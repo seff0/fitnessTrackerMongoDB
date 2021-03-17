@@ -33,13 +33,10 @@ router.post("/api/workouts", (req, res) => {
 });
 
 router.get("/api/workouts/range", (req, res) => {
-	db.Workout.find(
-		{ day: { $gte: query.start, $lte: query.end } },
-		(err, data) => {
-			if (err) throw err;
-			res.json(data);
-		}
-	);
+	db.Workout.find({}, (err, data) => {
+		if (err) throw err;
+		res.json(data);
+	});
 });
 
 module.exports = router;
